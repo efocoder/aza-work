@@ -1,0 +1,21 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  host: <%= Rails.application.credentials.database.host %>
+  username: <%= Rails.application.credentials.database.username %>
+  password: <%= Rails.application.credentials.database.password %>
+  port: <%= Rails.application.credentials.database.port.to_i %>
+
+
+development:
+  <<: *default
+  database: <%= Rails.application.credentials.database.dev_db %>
+test:
+  <<: *default
+  database: <%= Rails.application.credentials.database.test_db %>
+production:
+  <<: *default
+  database: transactions_service_production
+  username: transactions_service
+  password: <%= ENV["TRANSACTIONS_SERVICE_DATABASE_PASSWORD"] %>
