@@ -1,10 +1,10 @@
 module ApiHelpers
-  def json_body
+  def json_body(response)
     JSON.parse(response.body)
   end
 
-  def auth_header(account)
-    Devise::JWT::TestHelpers.auth_headers(valid_headers, account)
+  def auth_header(auth)
+    Devise::JWT::TestHelpers.auth_headers(valid_headers, auth)
   end
 end
 
