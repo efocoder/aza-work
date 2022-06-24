@@ -2,7 +2,7 @@
 
 module V1
   class Transaction < ApplicationRecord
-    self.table_name = :transactions
+    self.table_name = :transactions # the scaffold expects v2_transactions, but wanted to keep it as transaction
     self.primary_key = :transaction_id
 
     before_create :generate_transaction_id
