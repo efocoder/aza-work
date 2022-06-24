@@ -4,8 +4,8 @@ module V1
 
     # GET /v1/transactions
     def index
-      @v1_transactions ||= V1::Transaction.load_transactions
-
+      @pagy, @v1_transactions = pagy V1::Transaction.load_transactions
+      # logger.info pagy_headers_merge(@pagy).inspect #["Link"]
       render json: create_response(200, 'Request successful',
                                    serialize_data(V1::TransactionSerializer, @v1_transactions)), status: :ok
     end

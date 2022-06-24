@@ -1,7 +1,9 @@
 class ApplicationController < ActionController::API
+  include Pagy::Backend
   include Shared
-  include ActionController::MimeResponds
+  # include ActionController::MimeResponds
   before_action :authenticate_auth!
+  after_action { pagy_headers_merge(@pagy) if @pagy }
 
   respond_to :json
   wrap_parameters format: [:json]
