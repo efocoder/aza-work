@@ -9,5 +9,4 @@ module V1
            :jwt_authenticatable, jwt_revocation_strategy: V1::JwtDenylist
 
   end
-
 end

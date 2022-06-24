@@ -2,7 +2,7 @@
 
 Rails.application.routes.draw do
   namespace :v1 do
-    resources :transactions, only: %i[index create show]
+    resources :transactions, only: %i[index create show, update]
   end
   devise_for :auths, class_name: 'V1::Auth',
                      controllers: {

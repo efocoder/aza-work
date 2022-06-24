@@ -1,11 +1,13 @@
 module V1
   class TransactionsController < ApplicationController
-    before_action :set_v1_transaction, only: %i[show]
+    before_action :set_v1_transaction, only: %i[show update]
 
     # GET /v1/transactions
     def index
       @pagy, @v1_transactions = pagy V1::Transaction.load_transactions
       # logger.info pagy_headers_merge(@pagy).inspect #["Link"]
+      # logger.info @pagy.inspect
+      # logger.info request.inspect
       render json: create_response(200, 'Request successful',
                                    serialize_data(V1::TransactionSerializer, @v1_transactions)), status: :ok
     end
@@ -27,7 +29,17 @@ module V1
           render json: @v1_transaction.errors, status: :unprocessable_entity
         end
       end
+    end
 
+    def update
+      @v1_transaction.transaction do
+        if @v1_transaction.update(v1_transaction_params)
+          render json: create_response(200, 'Transaction updated successfully',
+                                       serialize_data(V1::TransactionSerializer, @v1_transaction)), status: :ok
+        else
+          render json: @v1_transaction.errors, status: :unprocessable_entity
+        end
+      end
     end
 
     private

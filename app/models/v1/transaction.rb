@@ -33,7 +33,6 @@ module V1
                               "AZAFXT#{Time.now.strftime('%y%m')}0001"
                             end
     end
-
   end
 
 end
